@@ -1,0 +1,33 @@
+program FizzBuzzGame {
+    start {
+        // Let's count from 1 to 20 and play FizzBuzz!
+        fixed number START is 1
+        fixed number END is 20
+
+        command checkFizzBuzz(number num) {
+            choice isFizz is num % 3 is equal to 0
+            choice isBuzz is num % 5 is equal to 0
+            
+            choose {
+                when isFizz and isBuzz then {
+                    reply "FizzBuzz"
+                }
+                when isFizz then {
+                    reply "Fizz"
+                }
+                when isBuzz then {
+                    reply "Buzz"
+                }
+                otherwise {
+                    reply num
+                }
+            }
+        }
+
+        number current is START
+        repeat while current is at most END {
+            print checkFizzBuzz(current)
+            current is current + 1
+        }
+    }
+}

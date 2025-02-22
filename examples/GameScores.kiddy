@@ -1,0 +1,70 @@
+program GameScoreCalculator {
+    start {
+        // Variables of different types
+        text playerName is "Alex"
+        number score is 0
+        number bonusPoints is 1.5
+        choice isGameOver is no
+        list collectibles is [10, 20, 30, 40]
+        
+        // Command to calculate bonus score
+        command calculateBonus(number baseScore, number multiplier) {
+            reply baseScore * multiplier
+        }
+        
+        // Command to check if player got high score
+        command isHighScore(number playerScore) {
+            reply playerScore is greater than 100
+        }
+        
+        // Main game logic using loops and conditions
+        repeat 3 times {
+            score is score + 50
+            
+            if score is greater than 100 then {
+                print "Wow! You're doing great, " + playerName + "!"
+            }
+        }
+        
+        // Using a list and loop
+        print "Collecting bonus items..."
+        repeat for item in collectibles {
+            score is score + item
+            print "Found item worth: " + item
+        }
+        
+        // Using arithmetic operators
+        number totalScore is score + calculateBonus(score, bonusPoints)
+        
+        // Using comparison operators and boolean logic
+        if totalScore is greater than 200 and isHighScore(totalScore) then {
+            print "New high score!"
+            isGameOver is yes
+        } else if totalScore is at least 150 then {
+            print "Good job!"
+            isGameOver is yes
+        } else {
+            print "Keep trying!"
+            isGameOver is no
+        }
+        
+        // Using boolean operators
+        choice canGetPrize is isGameOver is equal to yes and totalScore is greater than 180
+        
+        choose {
+            when canGetPrize then {
+                print "You won a prize!"
+            }
+            when totalScore is at least 100 then {
+                print "Almost won a prize!"
+            }
+            otherwise {
+                print "Try again for a prize!"
+            }
+        }
+        
+        // Final score display using string concatenation
+        print "Game Over!"
+        print "Final Score: " + totalScore
+    }
+}

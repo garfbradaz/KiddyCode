@@ -1,0 +1,40 @@
+program Calculator {
+    start {
+        // Simple calculator that can add, subtract, multiply and divide
+        command add(number a, number b) {
+            reply a + b
+        }
+
+        command subtract(number a, number b) {
+            reply a - b
+        }
+
+        command multiply(number a, number b) {
+            reply a * b
+        }
+
+        command divide(number a, number b) {
+            if b is equal to 0 then {
+                print "Oops! Can't divide by zero!"
+                reply 0
+            }
+            reply a / b
+        }
+
+        // Let's try some calculations!
+        number result is add(10, 5)
+        print "10 plus 5 is " + result
+
+        result is subtract(20, 8)
+        print "20 minus 8 is " + result
+
+        result is multiply(6, 4)
+        print "6 times 4 is " + result
+
+        result is divide(15, 3)
+        print "15 divided by 3 is " + result
+
+        // Try dividing by zero to see what happens
+        result is divide(10, 0)
+    }
+}

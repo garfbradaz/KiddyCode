@@ -1,0 +1,28 @@
+program SciFiNameGenerator {
+    start {
+        // Lists of parts to make cool sci-fi names
+        fixed list firstParts is ["Zor", "Kry", "Vex", "Neo", "Cy", "Quantum", "Stellar", "Cosmic"]
+        fixed list middleParts is ["zon", "lex", "tron", "bot", "droid", "tech", "star"]
+        fixed list lastParts is ["ix", "or", "us", "ion", "oid", "ova", "ax"]
+
+        command getRandomItem(list items) {
+            number randomIndex is items % length  // This will be replaced with proper random when implemented
+            reply items[randomIndex]
+        }
+
+        command generateSciFiName() {
+            text firstName is getRandomItem(firstParts)
+            text middleName is getRandomItem(middleParts)
+            text lastName is getRandomItem(lastParts)
+            reply firstName + middleName + lastName
+        }
+
+        // Generate 5 cool sci-fi names
+        print "Welcome to the Sci-Fi Name Generator!"
+        print "-----------------------------------"
+        
+        repeat 5 times {
+            print generateSciFiName()
+        }
+    }
+}

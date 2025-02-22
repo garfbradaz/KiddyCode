@@ -1,0 +1,94 @@
+program HangmanGame {
+    start {
+        // List of words to guess from
+        fixed list words is ["PYTHON", "SCRATCH", "CODING", "COMPUTER", "ROBOT", "PROGRAM"]
+        fixed number MAX_TRIES is 6
+        
+        // The word to guess (we'll just use the first word for now, 
+        // later we can add random selection)
+        text secretWord is words[0]
+        text guessedLetters is ""
+        number triesLeft is MAX_TRIES
+        
+        command isLetterInWord(text letter, text word) {
+            number position is 0
+            choice found is no
+            
+            repeat while position is less than word % length {
+                if word[position] is equal to letter then {
+                    found is yes
+                }
+                position is position + 1
+            }
+            reply found
+        }
+        
+        command showCurrentProgress(text word, text guessed) {
+            text display is ""
+            number position is 0
+            
+            repeat while position is less than word % length {
+                text currentLetter is word[position]
+                if guessedLetters % contains(currentLetter) then {
+                    display is display + currentLetter
+                } else {
+                    display is display + "_"
+                }
+                display is display + " "
+                position is position + 1
+            }
+            reply display
+        }
+        
+        command isGameWon(text word, text guessed) {
+            number position is 0
+            choice allFound is yes
+            
+            repeat while position is less than word % length {
+                if not guessedLetters % contains(word[position]) then {
+                    allFound is no
+                }
+                position is position + 1
+            }
+            reply allFound
+        }
+        
+        // Main game loop
+        print "Welcome to Hangman!"
+        print "Try to guess the word by guessing one letter at a time."
+        print "You have " + MAX_TRIES + " tries to guess wrong before game over!"
+        
+        repeat while triesLeft is greater than 0 {
+            print "Word: " + showCurrentProgress(secretWord, guessedLetters)
+            print "Tries left: " + triesLeft
+            print "Guessed letters: " + guessedLetters
+            
+            // Here we would normally get input from the player
+            // For now, we'll simulate a guess
+            text guess is "A"  // This would be player input
+            
+            if guessedLetters % contains(guess) then {
+                print "You already guessed that letter!"
+            } else {
+                guessedLetters is guessedLetters + guess
+                
+                if isLetterInWord(guess, secretWord) then {
+                    print "Good guess!"
+                    
+                    if isGameWon(secretWord, guessedLetters) then {
+                        print "Congratulations! You won!"
+                        print "The word was: " + secretWord
+                        reply
+                    }
+                } else {
+                    print "Wrong guess!"
+                    triesLeft is triesLeft - 1
+                }
+            }
+        }
+        
+        if triesLeft is equal to 0 then {
+            print "Game Over! The word was: " + secretWord
+        }
+    }
+}

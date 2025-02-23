@@ -1,12 +1,12 @@
-name: Feature Request
-description: Suggest an idea for KiddyCode
+name: Feature Request 🌟
+description: Suggest a cool new idea for KiddyCode!
 title: "[FEATURE] "
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to suggest a new feature!
+        Thanks for taking the time to suggest a new feature! Let's make KiddyCode even more awesome!
   - type: textarea
     id: problem
     attributes:
